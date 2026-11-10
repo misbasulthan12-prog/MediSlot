@@ -1,0 +1,243 @@
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+}
+
+body { 
+  background: #f8fafc; 
+  color: #1e293b; 
+}
+
+.navbar { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 1rem 2.5rem; 
+  background: #0284c7; 
+  color: white; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08); 
+}
+
+.navbar a { 
+  color: white; 
+  text-decoration: none; 
+  margin-left: 1.2rem; 
+  font-weight: 500; 
+  font-size: 0.95rem; 
+}
+
+.navbar a:hover { 
+  opacity: 0.85; 
+}
+
+.brand { 
+  font-size: 1.4rem; 
+  font-weight: bold; 
+}
+
+.container { 
+  max-width: 1050px; 
+  margin: 2.5rem auto; 
+  padding: 0 1.5rem; 
+}
+
+.grid-layout { 
+  display: grid; 
+  grid-template-columns: 1.1fr 1fr; 
+  gap: 2.5rem; 
+}
+
+.card { 
+  background: white; 
+  padding: 1.4rem; 
+  border-radius: 10px; 
+  margin-bottom: 1.2rem; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
+  border-left: 4px solid #0284c7; 
+}
+
+.specialty { 
+  color: #0284c7; 
+  font-weight: 600; 
+  margin: 0.3rem 0; 
+  font-size: 1rem; 
+}
+
+.booking-panel, .auth-box { 
+  background: white; 
+  padding: 2rem; 
+  border-radius: 10px; 
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06); 
+}
+
+.auth-box { 
+  max-width: 420px; 
+  margin: 2rem auto; 
+}
+
+form label { 
+  display: block; 
+  margin-top: 1.2rem; 
+  font-weight: 600; 
+  font-size: 0.9rem; 
+  color: #334155; 
+}
+
+form input, form select { 
+  width: 100%; 
+  padding: 0.75rem; 
+  margin-top: 0.4rem; 
+  border: 1px solid #cbd5e1; 
+  border-radius: 6px; 
+  font-size: 0.95rem; 
+  background: #fff; 
+}
+
+.slots-container { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 0.6rem; 
+  margin-top: 0.6rem; 
+}
+
+.slot-btn { 
+  padding: 0.6rem 0.4rem; 
+  border: 1.5px solid #0284c7; 
+  background: white; 
+  color: #0284c7; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  font-weight: 600; 
+  font-size: 0.85rem; 
+  text-align: center; 
+}
+
+.slot-btn.selected { 
+  background: #0284c7; 
+  color: white; 
+}
+
+.slot-btn.booked { 
+  background: #e2e8f0; 
+  color: #94a3b8; 
+  border-color: #cbd5e1; 
+  cursor: not-allowed; 
+  text-decoration: line-through; 
+}
+
+.btn-primary { 
+  width: 100%; 
+  background: #0284c7; 
+  color: white; 
+  border: none; 
+  padding: 0.85rem; 
+  border-radius: 6px; 
+  font-weight: bold; 
+  margin-top: 1.8rem; 
+  cursor: pointer; 
+  font-size: 1rem; 
+}
+
+.btn-primary:disabled { 
+  background: #94a3b8; 
+  cursor: not-allowed; 
+}
+
+.btn-danger { 
+  background: #ef4444; 
+  color: white; 
+  border: none; 
+  padding: 0.4rem 0.8rem; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  font-weight: 600; 
+}
+
+.btn-download { 
+  display: inline-block; 
+  background: #0284c7; 
+  color: white; 
+  padding: 0.4rem 0.8rem; 
+  border-radius: 5px; 
+  text-decoration: none; 
+  font-size: 0.85rem; 
+  font-weight: 600; 
+  transition: background 0.2s ease; 
+}
+
+.btn-download:hover { 
+  background: #0369a1; 
+}
+
+.table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  background: white; 
+  margin-top: 1.5rem; 
+  border-radius: 10px; 
+  overflow: hidden; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04); 
+}
+
+.table th, .table td { 
+  padding: 0.9rem 1.2rem; 
+  border-bottom: 1px solid #f1f5f9; 
+  text-align: left; 
+}
+
+.table th { 
+  background: #f8fafc; 
+  font-weight: 600; 
+  color: #475569; 
+}
+
+.status-badge { 
+  padding: 0.25rem 0.6rem; 
+  border-radius: 20px; 
+  font-size: 0.8rem; 
+  font-weight: 600; 
+}
+
+.status-badge.confirmed { 
+  background: #dcfce7; 
+  color: #15803d; 
+}
+
+.status-badge.cancelled { 
+  background: #fee2e2; 
+  color: #b91c1c; 
+}
+
+.alert { 
+  padding: 0.85rem 1.2rem; 
+  border-radius: 6px; 
+  margin-bottom: 1.2rem; 
+  font-weight: 500; 
+}
+
+.alert-success { 
+  background: #dcfce7; 
+  color: #15803d; 
+  border-left: 4px solid #16a34a; 
+}
+
+.alert-danger { 
+  background: #fee2e2; 
+  color: #b91c1c; 
+  border-left: 4px solid #dc2626; 
+}
+
+.alert-info { 
+  background: #e0f2fe; 
+  color: #0369a1; 
+  border-left: 4px solid #0284c7; 
+}
+
+.placeholder-text { 
+  font-size: 0.85rem; 
+  color: #64748b; 
+  font-style: italic; 
+  margin-top: 0.4rem; 
+}

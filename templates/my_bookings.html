@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Appointments</h2>
+{% if bookings %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Doctor</th>
+        <th>Specialty & Room</th>
+        <th>Date & Time</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in bookings %}
+      <tr>
+        <td><strong>#MS-{{ "%04d" % b.id }}</strong></td>
+        <td><strong>{{ b.doctor_name }}</strong></td>
+        <td>{{ b.specialty }} ({{ b.room_no }})</td>
+        <td>{{ b.appointment_date }} at {{ b.time_slot }}</td>
+        <td><span class="status-badge {{ b.status.lower() }}">{{ b.status }}</span></td>
+        <td style="display: flex; gap: 0.5rem; align-items: center;">
+          <a href="/download-receipt/{{ b.id }}" class="btn-download" title="Download PDF Receipt">
+            📄 Receipt
+          </a>
+          {% if b.status == 'Confirmed' %}
+            <form action="/cancel/{{ b.id }}" method="POST" onsubmit="return confirm('Cancel this appointment?');" style="margin:0;">
+              <button type="submit" class="btn-danger">Cancel</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No appointments booked yet. <a href="/">Book one now</a>.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid-layout">
+  <!-- Left side: Doctor Directory -->
+  <div>
+    <h2>Available Doctors</h2>
+    <div class="doctor-cards">
+      {% for doc in doctors %}
+        <div class="card">
+          <h3>{{ doc.name }}</h3>
+          <p class="specialty">{{ doc.specialty }}</p>
+          <p>📍 {{ doc.room_no }} | 💵 ₹{{ doc.fee }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Right side: Real-time Slot Picker Form -->
+  <div class="booking-panel">
+    <h2>Book Consultation</h2>
+    <form action="/book" method="POST" id="bookingForm">
+      <label>Select Doctor:</label>
+      <select name="doctor_id" id="doctorSelect" required onchange="checkSlots()">
+        <option value="" disabled selected>-- Choose Doctor --</option>
+        {% for doc in doctors %}
+          <option value="{{ doc.doctor_id }}">{{ doc.name }} ({{ doc.specialty }})</option>
+        {% endfor %}
+      </select>
+
+      <label>Select Date:</label>
+      <input type="date" name="appointment_date" id="dateSelect" required onchange="checkSlots()">
+
+      <label>Available Time Slots:</label>
+      <div class="slots-container" id="slotsBox">
+        <p class="placeholder-text">Select doctor & date to see available timings.</p>
+      </div>
+
+      <input type="hidden" name="time_slot" id="selectedSlotInput" required>
+
+      <label>Reason for Visit (Optional):</label>
+      <input type="text" name="reason" placeholder="e.g., Fever, Cold, Consultation">
+
+      <button type="submit" class="btn-primary" id="confirmBtn" disabled>Confirm Booking</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Restrict past dates in the datepicker
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('dateSelect').setAttribute('min', today);
+
+  const allSlots = {{ slots | tojson }};
+
+  async function checkSlots() {
+    const docId = document.getElementById('doctorSelect').value;
+    const date = document.getElementById('dateSelect').value;
+    const slotsBox = document.getElementById('slotsBox');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const slotInput = document.getElementById('selectedSlotInput');
+
+    slotInput.value = "";
+    confirmBtn.disabled = true;
+
+    if (!docId || !date) return;
+
+    slotsBox.innerHTML = "<p>Checking available slots...</p>";
+
+    const response = await fetch(`/api/get-booked-slots?doctor_id=${docId}&date=${date}`);
+    const data = await response.json();
+    const booked = data.booked_slots || [];
+
+    slotsBox.innerHTML = "";
+    allSlots.forEach(slot => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "slot-btn";
+      btn.innerText = slot;
+
+      if (booked.includes(slot)) {
+        btn.classList.add("booked");
+        btn.disabled = true;
+      } else {
+        btn.onclick = () => {
+          document.querySelectorAll(".slot-btn").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          slotInput.value = slot;
+          confirmBtn.disabled = false;
+        };
+      }
+      slotsBox.appendChild(btn);
+    });
+  }
+</script>
+{% endblock %}

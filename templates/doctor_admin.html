@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Doctor Consultation Schedule</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Patient Name</th>
+      <th>Phone</th>
+      <th>Reason</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in appointments %}
+    <tr>
+      <td>{{ a.appointment_date }}</td>
+      <td><strong>{{ a.time_slot }}</strong></td>
+      <td>{{ a.patient_name }}</td>
+      <td>{{ a.phone }}</td>
+      <td>{{ a.reason }}</td>
+      <td><span class="status-badge {{ a.status.lower() }}">{{ a.status }}</span></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
